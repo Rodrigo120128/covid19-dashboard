@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*{
+    font-family: 'Lato', sans-serif;
+}
+
+.home-title{
+    display: flex;
+    margin: 20px auto;
+    color: white;
+    width: 240px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-onWorld{
+    font-size: 40px;
+}
+
+.title-covid-19{
+    font-size: 25px;
+}
+
+.home-worldData{
+    display: flex;
+    width: 920px;
+    justify-content: space-between;
+    margin: 40px auto;
+}
+
+.home-worldData-card-confirmed{
+    color:rgb(213,225,78);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-worldData-card-deaths{
+    color:rgb(253,51,63);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.home-worldData-card-recovered{
+    color:rgb(76,234,73);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

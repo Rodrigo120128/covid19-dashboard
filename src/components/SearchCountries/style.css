@@ -1,0 +1,13 @@
+.home-searchCountries{
+    display: flex;
+    justify-content: center;
+}
+
+.home-searchCountries input{
+    border-radius: 10px;
+    font-size: 15px;
+    border: 0;
+    height: 25px;
+    width: 200px;
+    padding-left: 5px;
+}
