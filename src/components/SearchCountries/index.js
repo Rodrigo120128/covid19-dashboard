@@ -47,12 +47,11 @@ const SearchCountries = () => {
     }
 
     const moreCountries = ()  => {
-        if(document.getElementsByTagName("input")[0].value  === ""){
+        if(document.getElementsByTagName("input")[1].value  === ""){
             countryCounter+=9
             const nextCountries = data.Countries.filter((item,index) => {
                 if(index <= countryCounter) return true
             })
-
             setCountryData(nextCountries)
         }
     }

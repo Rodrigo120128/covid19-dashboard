@@ -7,12 +7,15 @@ import {
   Route,
   BrowserRouter
 } from "react-router-dom";
+import {ThemeProvider} from "./context/theme"
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" component={DashBoardHome}/>
+        <ThemeProvider>
+          <Route path="/" component={DashBoardHome}/>
+        </ThemeProvider>
       </Switch>
     </BrowserRouter>
   );
