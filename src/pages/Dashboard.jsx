@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 
-import CountryCard from '../CountryCard'
+import CountryCard from '../components/CountryCard'
+import HeaderHome from '../components/Header'
+import { ThemeContext } from '../context/theme'
 
-import './style.css'
+import { Cards, InputContainer, Input } from '../styles/dashboard'
 
-const SearchCountries = () => {
+const DashBoardHome = () => {
+  const { theme } = useContext(ThemeContext)
+  document.body.style.backgroundColor = theme.colors.background
+
   const [countryData, setCountryData] = useState([])
   const [countries, setCountries] = useState()
-  let countryCounter = 8
+  let countryCounter = 9
   let data = ''
 
   useEffect(async () => {
@@ -16,9 +21,8 @@ const SearchCountries = () => {
     )
     data = await (await fetch('https://api.covid19api.com/summary')).json()
     const firstNineCountries = data.Countries.filter((item, index) => {
-      if (index <= 8) return true
+      if (index <= 7) return true
     })
-
     setCountryData(firstNineCountries)
 
     window.addEventListener('scroll', infiniteScroll)
@@ -61,17 +65,22 @@ const SearchCountries = () => {
   }
 
   return (
-    <>
-      <div className="home-searchCountries">
-        <input
+    <div>
+      <HeaderHome />
+      <InputContainer>
+        <Input
           placeholder="Type any country"
           type="text"
           onChange={handleChange}
         />
-      </div>
-      <CountryCard countries={countryData} />
-    </>
+      </InputContainer>
+      <Cards>
+        {countryData.map(country => (
+          <CountryCard key={country.ID} country={country} />
+        ))}
+      </Cards>
+    </div>
   )
 }
 
-export default SearchCountries
+export default DashBoardHome
