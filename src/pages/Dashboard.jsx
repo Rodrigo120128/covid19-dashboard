@@ -5,7 +5,7 @@ import HeaderHome from '../components/Header'
 import api from '../services/api'
 import { Cards, InputContainer, Input } from '../styles/dashboard'
 
-const DashBoardHome = () => {
+const Dashboard = () => {
   const [countriesData, setCountriesData] = useState({})
   const [countriesCounter, setCountriesCounter] = useState(9)
   const [inputValue, setInputValue] = useState('')
@@ -32,6 +32,7 @@ const DashBoardHome = () => {
     window.addEventListener('scroll', checkScroll)
 
     return () => window.removeEventListener('scroll', checkScroll)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const checkScroll = () => {
@@ -67,4 +68,4 @@ const DashBoardHome = () => {
   )
 }
 
-export default DashBoardHome
+export default Dashboard
