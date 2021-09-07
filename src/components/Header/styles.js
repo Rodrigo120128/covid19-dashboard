@@ -15,7 +15,7 @@ export const Title = styled.div`
   align-items: center;
 
   margin-top: 1.5rem;
-  color: white;
+  color: ${props => props.theme.current.colors.text.primary};
 `
 
 export const Text = styled.h2`
@@ -44,8 +44,8 @@ export const Section = styled.div`
   flex-direction: column;
   align-items: center;
 
-  color: #${props => props.color};
   width: 9rem;
+  color: ${props => props.color};
 
   @media (max-width: 768px) {
     margin-top: 2rem;

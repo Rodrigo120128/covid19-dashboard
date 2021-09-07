@@ -21,4 +21,7 @@ export const Input = styled.input`
 
   border-radius: 0.5rem;
   border: 0;
+
+  -webkit-box-shadow: 0px 0px 15px -3px #000000;
+  box-shadow: 0px 0px 10px -3px #000000;
 `

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import Switch from 'react-switch'
 
-import { ThemeContext, themes } from '../../context/theme'
+import { ThemeContext } from 'styled-components'
+
 import {
   Container,
   ThemeButton,
@@ -15,17 +16,7 @@ import {
 } from './styles'
 
 const Header = ({ data }) => {
-  const { theme, setTheme } = useContext(ThemeContext)
-
-  const toggleTheme = () => {
-    if (theme.name === 'dark') {
-      localStorage.setItem('@theme', 'light')
-      return themes[1]
-    } else {
-      localStorage.setItem('@theme', 'dark')
-      return themes[0]
-    }
-  }
+  const theme = useContext(ThemeContext)
 
   return (
     <Container>
@@ -35,10 +26,8 @@ const Header = ({ data }) => {
       </Title>
       <ThemeButton>
         <Switch
-          onChange={() => {
-            setTheme(toggleTheme())
-          }}
-          checked={theme.name === 'dark' ? true : false}
+          onChange={theme.setTheme}
+          checked={theme.current.title == 'dark'}
           checkedIcon={false}
           uncheckedIcon={false}
           height={20}
@@ -47,15 +36,15 @@ const Header = ({ data }) => {
         />
       </ThemeButton>
       <Data>
-        <Section color="D5E14E">
+        <Section color={theme.current.colors.text.yellow}>
           <SectionTitle>Confirmed</SectionTitle>
           <Amount>{data && data.Global.TotalConfirmed}</Amount>
         </Section>
-        <Section color="FD333F">
+        <Section color={theme.current.colors.text.red}>
           <SectionTitle>Deaths</SectionTitle>
           <Amount>{data && data.Global.TotalDeaths}</Amount>
         </Section>
-        <Section color="4CEA49">
+        <Section color={theme.current.colors.text.green}>
           <SectionTitle>Recovered</SectionTitle>
           <Amount>{data && data.Global.TotalRecovered}</Amount>
         </Section>

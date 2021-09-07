@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body{
-    background-color: rgb(27,27,29);
+    background: ${props => props.theme.current.colors.background};
     padding: 0 10rem;
   }
 

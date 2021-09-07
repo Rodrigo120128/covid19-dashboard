@@ -9,7 +9,7 @@ export const Card = styled.div`
   padding: 1rem 0;
   margin-bottom: 2rem;
 
-  background: #262b30;
+  background: ${props => props.theme.current.colors.card};
   color: white;
 
   -webkit-box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.49);
@@ -19,6 +19,7 @@ export const Card = styled.div`
 export const Name = styled.span`
   font-size: 1.8rem;
   text-align: center;
+  color: ${props => props.theme.current.colors.text.primary};
 `
 
 export const Data = styled.div`
@@ -34,10 +35,11 @@ export const Section = styled.div`
 `
 
 export const SectionTitle = styled.span`
+  color: ${props => props.theme.current.colors.text.primary};
   margin-bottom: 0.3rem;
 `
 
 export const Amount = styled.span`
   font-size: 1.7rem;
-  color: #${props => props.color};
+  color: ${props => props.color};
 `
