@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Switch from 'react-switch'
 
 import { ThemeContext, themes } from '../../context/theme'
@@ -14,15 +14,8 @@ import {
   Amount
 } from './styles'
 
-const HeaderHome = () => {
-  const [globalData, setGlobalData] = useState()
+const Header = ({ data }) => {
   const { theme, setTheme } = useContext(ThemeContext)
-
-  useEffect(async () => {
-    setGlobalData(
-      await (await fetch('https://api.covid19api.com/summary')).json()
-    )
-  }, [])
 
   const toggleTheme = () => {
     if (theme.name === 'dark') {
@@ -56,19 +49,19 @@ const HeaderHome = () => {
       <Data>
         <Section color="D5E14E">
           <SectionTitle>Confirmed</SectionTitle>
-          <Amount>{globalData && globalData.Global.TotalConfirmed}</Amount>
+          <Amount>{data && data.Global.TotalConfirmed}</Amount>
         </Section>
         <Section color="FD333F">
           <SectionTitle>Deaths</SectionTitle>
-          <Amount>{globalData && globalData.Global.TotalDeaths}</Amount>
+          <Amount>{data && data.Global.TotalDeaths}</Amount>
         </Section>
         <Section color="4CEA49">
           <SectionTitle>Recovered</SectionTitle>
-          <Amount>{globalData && globalData.Global.TotalRecovered}</Amount>
+          <Amount>{data && data.Global.TotalRecovered}</Amount>
         </Section>
       </Data>
     </Container>
   )
 }
 
-export default HeaderHome
+export default Header

@@ -18,6 +18,7 @@ export const Card = styled.div`
 
 export const Name = styled.span`
   font-size: 1.8rem;
+  text-align: center;
 `
 
 export const Data = styled.div`

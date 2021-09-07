@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 import { Card, Name, Data, Section, SectionTitle, Amount } from './styles'
 
@@ -24,4 +24,4 @@ const CountryCard = ({ country }) => {
   )
 }
 
-export default CountryCard
+export default memo(CountryCard)

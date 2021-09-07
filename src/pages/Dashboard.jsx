@@ -4,80 +4,69 @@ import CountryCard from '../components/CountryCard'
 import HeaderHome from '../components/Header'
 import { ThemeContext } from '../context/theme'
 
+import api from '../services/api'
 import { Cards, InputContainer, Input } from '../styles/dashboard'
 
 const DashBoardHome = () => {
   const { theme } = useContext(ThemeContext)
   document.body.style.backgroundColor = theme.colors.background
 
-  const [countryData, setCountryData] = useState([])
-  const [countries, setCountries] = useState()
-  let countryCounter = 9
-  let data = ''
+  const [countriesData, setCountriesData] = useState({})
+  const [countriesCounter, setCountriesCounter] = useState(9)
+  const [inputValue, setInputValue] = useState('')
 
-  useEffect(async () => {
-    setCountries(
-      await (await fetch('https://api.covid19api.com/summary')).json()
-    )
-    data = await (await fetch('https://api.covid19api.com/summary')).json()
-    const firstNineCountries = data.Countries.filter((item, index) => {
-      if (index <= 7) return true
-    })
-    setCountryData(firstNineCountries)
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await api.get('/summary')
 
-    window.addEventListener('scroll', infiniteScroll)
+        setCountriesData(response.data)
+      } catch (err) {
+        setCountriesData({
+          Global: {
+            TotalConfirmed: '?',
+            TotalDeaths: '?',
+            TotalRecovered: '?'
+          }
+        })
+      }
+    }
 
-    return () => window.removeEventListener('scroll', infiniteScroll)
+    getData()
+
+    window.addEventListener('scroll', checkScroll)
+
+    return () => window.removeEventListener('scroll', checkScroll)
   }, [])
 
-  const infiniteScroll = () => {
+  const checkScroll = () => {
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement
 
-    if (scrollTop + clientHeight >= scrollHeight) {
-      moreCountries()
-    }
+    if (scrollTop + clientHeight >= scrollHeight) loadMoreCountries()
   }
 
-  const handleChange = e => {
-    const country = e.target.value.toUpperCase()
-
-    const arrayCountries = countries.Countries.filter(item => {
-      const arrayName = item.Country.split('')
-      const arrayNameLength = arrayName.filter((item, index) => {
-        if (index + 1 <= country.length) return true
-      })
-      const countryName = arrayNameLength.join('').toUpperCase()
-
-      if (country === countryName) return true
-    })
-
-    setCountryData(arrayCountries)
-  }
-
-  const moreCountries = () => {
-    if (document.getElementsByTagName('input')[1].value === '') {
-      countryCounter += 9
-      const nextCountries = data.Countries.filter((item, index) => {
-        if (index <= countryCounter) return true
-      })
-      setCountryData(nextCountries)
-    }
-  }
+  const loadMoreCountries = () => setCountriesCounter(oldValue => oldValue + 9)
 
   return (
     <div>
-      <HeaderHome />
+      <HeaderHome data={countriesData.Global && countriesData} />
       <InputContainer>
         <Input
+          onChange={e => setInputValue(e.target.value)}
           placeholder="Type any country"
           type="text"
-          onChange={handleChange}
         />
       </InputContainer>
       <Cards>
-        {countryData.map(country => (
-          <CountryCard key={country.ID} country={country} />
-        ))}
+        {countriesData.Countries &&
+          countriesData.Countries.filter(
+            country =>
+              inputValue == '' ||
+              inputValue.toUpperCase() ==
+                country.Country.substr(0, inputValue.length).toUpperCase()
+          )
+            .filter((country, index) => index < countriesCounter)
+            .map(country => <CountryCard key={country.ID} country={country} />)}
       </Cards>
     </div>
   )
