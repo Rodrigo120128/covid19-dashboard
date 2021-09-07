@@ -15,24 +15,24 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html{
-    font-size: 190%;
+    font-size: 175%;
   }
 
   @media (max-width: 2375px) {
-    html {
-      font-size: 175%;
-    }
-  }
-
-  @media (max-width: 2050px) {
     html {
       font-size: 150%;
     }
   }
 
-  @media (max-width: 1800px) {
+  @media (max-width: 2050px) {
     html {
       font-size: 125%;
+    }
+  }
+
+  @media (max-width: 1800px) {
+    html {
+      font-size: 112.5%;
     }
   }
 
